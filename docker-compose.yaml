@@ -12,8 +12,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql
   web:
-    build: ./docker/dockerfile
-    image: eqdkp
+    build: .
     container_name: web
     depends_on:
       - db
