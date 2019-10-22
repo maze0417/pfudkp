@@ -11,6 +11,11 @@ services:
       - "3306:3306"
     volumes:
       - ./data:/var/lib/mysql
+  adminer:
+    image: adminer
+    container_name: sqladmin
+    ports:
+      - "8080:8080"
   web:
     build: .
     container_name: web

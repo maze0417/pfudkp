@@ -2,18 +2,23 @@ FROM php:7.3.10-apache
 
 RUN apt-get update  && \
     apt-get install -y \
+    libfreetype6-dev \
+    libmcrypt-dev \
+    libpng12-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
     libzip-dev \
     zip \
+    && docker-php-ext-install iconv mcrypt \
+    && docker-php-ext-configure gd \
+            --enable-gd-native-ttf \
+            --with-freetype-dir=/usr/include/freetype2 \
+            --with-png-dir=/usr/include \
+            --with-jpeg-dir=/usr/include \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install zip
-RUN mkdir /opt/eqdkp-files && \
-    cd /opt/eqdkp-files; curl https://github.com/EQdkpPlus/core/archive/2.3.17.zip
-#RUN cd /opt/eqdkp-files; mkdir extract; unzip 2.2.14.zip -d extract; mv extract/* . ; rm -fr extract
-#RUN chown -R www-data:www-data /opt/eq*
-#ADD eqdkp.conf /etc/nginx/sites-available
-#RUN ln -s /etc/nginx/sites-available/eqdkp.conf /etc/nginx/sites-enabled/eqdkp.conf
-#RUN rm /etc/nginx/sites-enabled/default
-#RUN mkdir /run/php
-#ADD init.sh /usr/local/bin
-#RUN chmod +x /usr/local/bin/init.sh
-#CMD ["/usr/local/bin/init.sh"]
+    && docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-enable gd
