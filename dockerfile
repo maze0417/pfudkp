@@ -2,7 +2,6 @@ FROM php:7.3.10-apache
 
 RUN apt-get update  && \
     apt-get install -y \
-    pkg-config \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
