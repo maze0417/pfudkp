@@ -17,8 +17,3 @@ RUN apt-get update  && \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo pdo_mysql \
-
-
-
- #cd /usr && mkdir save && cd save && wget https://sourceforge.net/projects/freetype/files/freetype2/2.9.1/freetype-2.9.1.tar.bz2
- #
