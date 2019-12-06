@@ -5,6 +5,7 @@ services:
     build: ./mysql
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: eqdkp
@@ -15,11 +16,13 @@ services:
   adminer:
     image: adminer
     container_name: sqladmin
+    restart: always
     ports:
       - "8080:8080"
   web:
     build: .
     container_name: web
+    restart: always
     depends_on:
       - db
     ports:
