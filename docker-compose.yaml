@@ -13,19 +13,13 @@ services:
       - "3306:3306"
     volumes:
       - ./data:/var/lib/mysql
-  adminer:
-    image: adminer
-    container_name: sqladmin
-    restart: always
-    ports:
-      - "8080:8080"
-  web:
+  eqweb:
     build: .
     container_name: web
     restart: always
     depends_on:
       - db
     ports:
-      - "80:80"
+      - "8888:80"
     volumes:
       - ./src/:/var/www/html/
