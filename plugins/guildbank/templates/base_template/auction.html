@@ -1,0 +1,86 @@
+<!-- IF ERROR_WARNING -->
+	<div class="infobox infobox-large infobox-red clearfix">
+		<i class="fa fa-exclamation-triangle fa-4x pull-left"></i> {L_gb_error_noidnotloggedin}
+	</div>
+<!-- ELSE -->
+<style>
+.guildbank_bidbar{
+	
+}
+</style>
+<script>
+var nextbid = {NEXT_BID_AMOUNT};
+var latestbidid = {LATEST_BID_ID};
+
+function getcurrentdkp(intMember){
+	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&dkp=1&memberid="+intMember,
+			function(data){
+				if(data){
+					$('#bid_button').removeAttr("disabled");
+					
+					var result = data.split('|');
+					var dkp = result[0];
+					var virtualdkp = result[1];
+					
+					var available = (dkp-virtualdkp < 0) ? 0 : dkp-virtualdkp;
+					
+					$('#availabledkp').html(available);
+					
+					if((dkp-virtualdkp-nextbid) < 0){
+						$('#bid_button').attr("disabled", "disabled");
+					}
+				}
+	});
+}
+<!-- IF S_AUCTION_RUNNING -->
+function checknewbids(){
+	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&pull=1",
+			function(data){
+				if(data){
+					if(data > 0 && data > latestbidid){
+						$('#new_bid_info').show();
+						latestbidid = data;
+					}
+				}
+	});
+}
+setInterval(checknewbids, 1000*60);
+<!-- ENDIF -->
+</script>
+
+<div>
+	<div class="raidcal_name floatLeft">
+		<span class="fa-stack fa-lg">
+		  <i class="fa fa-square fa-stack-2x"></i>
+		  <i class="fa fa-gavel fa-stack-1x fa-inverse"></i>
+		</span> {L_gb_auction_title}
+	</div>
+</div>
+<div class="clear"></div>
+
+		<div class="infobox infobox-large infobox-blue clearfix" id="new_bid_info" style="display:none;">
+			<i class="fa fa-info-circle fa-4x pull-left"></i>{NEW_BID_INFO}
+		</div>
+
+<form method="post" action="{ACTION}" name="addWC">
+	<input type="hidden" name="banker" value="{BANKERID}">
+	<div class="table">
+		<div class="tr">
+			<div class="td" style="width:10%">{L_gb_auction_bid_info}</div>
+			<div class="td" style="width:20%"><i class="fa fa-user"></i> {DD_MYCHARS}</div>
+			<div class="td" style="width:10%"><i class="fa fa-gavel"></i> {BID_SPINNER}</div>
+			<div class="td" style="width:10%"><button class="mainoption" type="submit" id="bid_button" name="bid" {BUTTON_DISABLED}><i class="fa fa-gavel"></i> {L_gb_button_bid}</button></div>
+			<div class="td" style="width:30%;text-align:right;"><i class="fa fa-clock-o"></i> {L_gb_auction_timeleft}: {TIMELEFT}</div>
+			<div class="td" style="width:20%;text-align:right;padding-right:14px"><i class="fa fa-trophy"></i> {L_gb_auction_avail_dkp}: <span id="availabledkp">{MY_DKPPOINTS}</span> {DKP_NAME}</div>
+		</div>
+	</div>
+	{CSRF_TOKEN}
+</form>
+
+<table class="table fullwidth colorswitch scrollable-x">
+	{BIDS_TABLE}
+</table>
+<div class="center pagination_wrapper">
+	{PAGINATION_BIDS}
+</div>
+<!-- ENDIF -->

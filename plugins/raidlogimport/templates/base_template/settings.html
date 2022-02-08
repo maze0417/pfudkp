@@ -1,0 +1,43 @@
+<div class="contentHeader">
+	<h1 class="contentTitle">{L_settings}</h1>
+</div>
+
+<!-- IF S_GERMAN -->
+<div class="infobox infobox-large infobox-blue clearfix">
+	<i class="fa fa-info-circle fa-4x pull-left"></i> {L_rli_manual}
+</div>
+<br />
+<!-- ENDIF -->
+<form action="{ACTION}" method="post">
+{TAB_JS}
+<div id="rli_config"><ul>
+<!-- BEGIN holder -->
+	<li><a href="#rli_config-{holder.NUM}"><span>{holder.TITLE}</span></a></li>
+<!-- END holder -->
+</ul>
+
+
+<!-- BEGIN holder -->
+  <div id="rli_config-{holder.NUM}">
+	<fieldset class="settings">
+		<legend>{holder.TITLE}</legend>
+		<!-- BEGIN config -->
+		<dl>
+			<dt>
+				<label>{holder.config.NAME}</label><br><span>{holder.config.HELP}</span>
+			</dt>
+			<dd>{holder.config.VALUE}</dd>
+		</dl>
+		<!-- END config -->
+	</fieldset>
+	</div>
+<!-- END holder -->
+</div>
+
+<div align='center'>
+	<button  name="upd" type="submit" class="mainoption" id="save"><i class="fa fa-check"></i>{L_save}</button>
+	<button type="reset" name="reset" class="liteoption"><i class="fa fa-trash-o"></i>{L_reset}</button>
+</div>
+
+{CSRF_TOKEN}
+</form>

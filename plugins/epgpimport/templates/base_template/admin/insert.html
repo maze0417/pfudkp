@@ -1,0 +1,28 @@
+<div class="contentHeader">
+	<h1 class="contentTitle">{L_epgpimport_import}</h1>
+</div>
+
+<!-- IF S_LAYOUT_WARNING -->
+<div class="infobox infobox-large infobox-red clearfix">
+	<i class="fa fa-exclamation-triangle fa-4x pull-left"></i> {L_epgpimport_layoutwarning}
+</div>
+<br />
+<!-- ENDIF -->
+<form method="post" action="{ACTION}" name="post">
+	<fieldset class="settings smallsettings">
+		<legend>{L_epgpimport_import}</legend>
+		<dl>
+			<dt><label>{L_event}</label></dt>
+			<dd>{EVENTS}</dd>
+		</dl>
+		<!-- IF not S_DKP_EASYMODE -->
+		<dl>
+			<dt><label>{L_itempool}</label></dt>
+			<dd>{ITEMPOOLS}</dd>
+		</dl>
+		<!-- ENDIF -->
+		<textarea name="log" rows="20" id="log" style="width: 99%" class="post" required></textarea>
+	</fieldset>
+	<button type="submit" name="insert"><i class="fa fa-check"></i>{L_submit}</button>
+	{CSRF_TOKEN}
+</form>
