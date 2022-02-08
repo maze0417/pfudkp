@@ -1,0 +1,34 @@
+<div id="guild_header_wrap">	
+		<div id="guild_emblem" class="hiddenSmartphone">
+			<img src="{TABARD}" alt="Guildtabard" class="eqdkpicon" />
+		</div>
+		<div id="guild_name_wrapper">
+			<div id="guild_name">{GUILD}</div>
+			<div id="guild_realm">{REGION}-{REALM}</div>
+		</div>
+		<div id="guild_data_wrapper">
+			<div>
+				<span class="guild_data_container"><i class="fa fa-lg fa-users"></i>&nbsp;{MEMBER_COUNT} {L_members}</span>
+			</div>
+		</div>
+</div>
+<br clear="left" />
+
+<div id="wow_roster">
+		
+	<div id="roster">
+	
+	<!-- BEGIN class_row -->
+		<div class="roster_class_container" data-level-id="{class_row.CLASS_LEVEL}" <!-- IF class_row.IS_PRIMARY -->data-is-primary="1" data-class-id="{class_row.CLASS_ID}"<!-- ENDIF -->>
+			<h{class_row.CLASS_LEVEL} class="<!-- IF class_row.IS_PRIMARY -->class_{class_row.CLASS_ID}<!-- ENDIF --> level_{class_row.CLASS_LEVEL}">{class_row.CLASS_ICONS} {class_row.CLASS_NAME}</h{class_row.CLASS_LEVEL}>
+			<!-- IF class_row.ENDLEVEL -->
+			<table class="table fullwidth colorswitch hoverrows">
+				{class_row.MEMBER_LIST}
+			</table>
+			<br /><br />
+		</div>
+		<!-- ENDIF -->
+	<!-- END class_row -->
+		</div>
+
+</div>
